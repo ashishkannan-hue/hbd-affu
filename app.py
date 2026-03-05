@@ -55,17 +55,28 @@ if page == "Home & Countdown":
         time.sleep(1)
 
 # --- PAGE 2: PHOTO GALLERY ---
+# --- PAGE 2: PHOTO GALLERY ---
 elif page == "Photo Gallery":
     st.markdown('<h2 style="text-align:center; color:white;">📸 Our Memories</h2>', unsafe_allow_html=True)
     cols = st.columns(2)
+    
     for i in range(1, 5):
         with cols[(i-1)%2]:
-            try:
-                img = Image.open(f"photo{i}.jpg")
-                st.image(img, use_container_width=True, caption=f"Memory #{i}")
-            except:
-                st.image(f"https://via.placeholder.com/400x450?text=Photo+{i}")
-
+            # This list tries every possible name/extension combo
+            found = False
+            # Check for: photo1.jpeg, photo1.jpg, photo1.png, and uppercase versions
+            extensions = [".jpeg", ".jpg", ".png", ".JPEG", ".JPG", ".PNG"]
+            
+            for ext in extensions:
+                img_path = f"photo{i}{ext}"
+                if os.path.exists(img_path):
+                    img = Image.open(img_path)
+                    st.image(img, use_container_width=True, caption=f"Memory #{i}")
+                    found = True
+                    break 
+            
+            if not found:
+                st.error(f"Missing: photo{i}.jpeg")
 # --- PAGE 3: GIFT SELECTION ---
 elif page == "Select Your Gifts":
     st.markdown('<h2 style="text-align:center; color:white;">🎁 Pick Your Surprise!</h2>', unsafe_allow_html=True)
