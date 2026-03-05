@@ -2,7 +2,7 @@ import streamlit as st
 import time
 from datetime import datetime
 from PIL import Image
-
+import os
 # --- PAGE SETUP ---
 st.set_page_config(page_title="HBD AFFU 🌙", page_icon="🐼", layout="centered")
 
