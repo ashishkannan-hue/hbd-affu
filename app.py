@@ -109,8 +109,7 @@ elif page == "The Luxury Boutique":
                 st.toast(f"{item} reserved for Affu! ✨")
 
 elif page == "A Royal Letter":
-    # --- 1. ANIMATION CSS ---
-    # This creates the "Fly Up" effect for hearts and balloons
+    # --- 1. CSS FOR FLYING HEARTS & BALLOONS ---
     st.markdown("""
         <style>
         @keyframes fly-up {
@@ -121,7 +120,7 @@ elif page == "A Royal Letter":
             position: fixed;
             bottom: -100px;
             font-size: 28px;
-            animation: fly-up 6s linear infinite;
+            animation: fly-up 7s linear infinite;
             z-index: 999;
             pointer-events: none;
         }
@@ -130,26 +129,27 @@ elif page == "A Royal Letter":
 
     st.markdown('<h1 style="text-align:center; color:white;">🔐 The Private Vault</h1>', unsafe_allow_html=True)
     
-    # Password Input
+    # Password Box
     pw = st.text_input("Enter Secret Word (Hint: Your Nickname):", type="password")
     
     if pw.lower() == "panda":
         # --- 2. TRIGGER EFFECTS ---
-        st.balloons()  # Standard Streamlit pop
-        st.snow()      # Falling sparkles
+        st.balloons()
+        st.snow()
         
-        # Create a continuous stream of flying hearts and balloons
+        # This generates the flying hearts and balloons
         floating_html = ""
         emojis = ["❤️", "🎈", "💖", "✨", "🌸", "🧸"]
         for i in range(20):
-            left_pos = i * 5  # Spreading across width
-            delay = i * 0.4   # Staggered start times
+            left_pos = i * 5  
+            delay = i * 0.4   
             emoji = emojis[i % len(emojis)]
             floating_html += f'<div class="floating-emoji" style="left:{left_pos}%; animation-delay:{delay}s;">{emoji}</div>'
         
         st.markdown(floating_html, unsafe_allow_html=True)
 
-        # --- 3. THE GRAND LETTER ---
+        # --- 3. THE ACTUAL LETTER (FIXED) ---
+        # Wrapping your text in st.markdown with unsafe_allow_html=True makes the code vanish and the design appear
         st.markdown(f"""
             <div class="grand-letter">
                 <div style="text-align:center; margin-bottom:10px;">
@@ -165,17 +165,14 @@ elif page == "A Royal Letter":
                         Many more happy returns to the best one, the cutest, prettiest, boldest, honest, loveliest 
                         <b>PANDA</b>... and she who just turned <b>19</b> and is going to have the best days on to come. 
                     </p>
-                    
                     <p>
                         Always be happy and smiling like the moon smiles (🌙) and whatever happens, <b>Affu</b> has to be brave 
                         cuz you're growing from a baby to a woman. 
                     </p>
-                    
                     <p>
                         Affu will have her best days coming and at this time, you were yelling at me and I'm not talking—sorry for that. 
                         But <b>Ashu</b> was a little serious in making you smile on your birthday. 
                     </p>
-                    
                     <p>
                         There is a set of gifts on the boutique page, so select between them!
                     </p>
