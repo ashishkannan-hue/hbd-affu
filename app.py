@@ -109,46 +109,24 @@ elif page == "The Luxury Boutique":
                 st.toast(f"{item} reserved for Affu! ✨")
 
 elif page == "A Royal Letter":
-    # 1. This CSS must be at the top of this block
-    st.markdown("""
-        <style>
-        @keyframes fly-up {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
-        .floating-emoji {
-            position: fixed;
-            bottom: -100px;
-            font-size: 28px;
-            animation: fly-up 7s linear infinite;
-            z-index: 999;
-            pointer-events: none;
-        }
-        </style>
-    """, unsafe_allow_html=True)
-
     st.markdown('<h1 style="text-align:center; color:white;">🔐 The Private Vault</h1>', unsafe_allow_html=True)
     
+    # 1. Password Protection
     pw = st.text_input("Enter Secret Word (Hint: Your Nickname):", type="password")
     
     if pw.lower() == "panda":
         st.balloons()
         st.snow()
-        
-        # 2. Generate floating emojis
-        floating_html = ""
-        for i in range(15):
-            left = i * 6
-            delay = i * 0.5
-            floating_html += f'<div class="floating-emoji" style="left:{left}%; animation-delay:{delay}s;">❤️</div>'
-            floating_html += f'<div class="floating-emoji" style="left:{left+3}%; animation-delay:{delay+1}s;">🎈</div>'
-        st.markdown(floating_html, unsafe_allow_html=True)
 
-        # 3. THE LETTER (Simplified to prevent rendering errors)
-        letter_content = """
+        # 2. This variable stores your letter design
+        letter_html = """
         <div class="grand-letter">
-            <div style="text-align:center; margin-bottom:10px;"><span style="font-size:40px;">🌙</span></div>
-            <h2 style="color:#d81b60; text-align:center; font-family: 'Georgia', serif;">To My Best Human</h2>
+            <div style="text-align:center; margin-bottom:10px;">
+                <span style="font-size:40px;">🌙</span>
+            </div>
+            <h2 style="color:#d81b60; text-align:center; font-family: 'Georgia', serif; letter-spacing: 2px;">
+                To My Best Human
+            </h2>
             <hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0,0,0,0), rgba(212,175,55,0.75), rgba(0,0,0,0)); margin-bottom: 30px;">
             
             <div style="font-size:18px; line-height:1.9; color:#2c3e50; font-family: 'Georgia', serif;">
@@ -164,8 +142,9 @@ elif page == "A Royal Letter":
             </div>
         </div>
         """
-        # THE MOST IMPORTANT LINE:
-        st.markdown(letter_content, unsafe_allow_html=True)
+
+        # 3. THIS LINE TELLS STREAMLIT: "DO NOT SHOW CODE, SHOW THE LETTER"
+        st.markdown(letter_html, unsafe_allow_html=True)
         
     elif pw:
-        st.error("That's not the secret word, Panda! Try again. 🐼")
+        st.error("Wrong password! Try again, Panda. 🐼")
