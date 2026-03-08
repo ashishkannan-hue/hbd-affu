@@ -107,56 +107,15 @@ elif page == "The Luxury Boutique":
             st.markdown(f"<div class='glass-card'><h2>{icon}</h2><h3>{item}</h3><p style='color:gold;'>FREE</p></div>", unsafe_allow_html=True)
             if st.button(f"Claim {item}", key=idx):
                 st.toast(f"{item} reserved for Affu! ✨")
-# --- PAGE 4: THE ROYAL LETTER ---
-elif page == "A Royal Letter":
-    st.markdown('<h1 style="text-align:center; color:white;">🔐 The Private Vault</h1>', unsafe_allow_html=True)
-    
-    # Password box
-    pw = st.text_input("Enter the Secret Word (Hint: Your Nickname):", type="password")
-    
-    if pw.lower() == "panda":
-        st.snow() 
-        
-        # This is the part that makes it look like a letter instead of code
-        st.markdown(f"""
-            <div class="grand-letter">
-                <div style="text-align:center; margin-bottom:10px;">
-                    <span style="font-size:40px;">🌙</span>
-                </div>
-                <h2 style="color:#d81b60; text-align:center; font-family: 'Georgia', serif; letter-spacing: 2px;">
-                    To My Best Human
-                </h2>
-                <hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0,0,0,0), rgba(212,175,55,0.75), rgba(0,0,0,0)); margin-bottom: 30px;">
-                
-                <div style="font-size:18px; line-height:1.9; color:#2c3e50; font-family: 'Georgia', serif;">
-                    <p>
-                        Many more happy returns to the best one, the cutest, prettiest, boldest, honest, loveliest 
-                        <b>PANDA</b>... and she who just turned <b>19</b> and is going to have the best days on to come. 
-                    </p>
-                    
-                    <p>
-                        Always be happy and smiling like the moon smiles (🌙) and whatever happens, <b>Affu</b> has to be brave 
-                        cuz you're growing from a baby to a woman. 
-                    </p>
-                    
-                    <p>
-                        Affu will have her best days coming and at this time, you were yelling at me and I'm not talking—sorry for that. 
-                        But <b>Ashu</b> was a little serious in making you smile on your birthday. 
-                    </p>
-                    
-                    <p>
-                        There is a set of gifts on the boutique page, so select between them!
-                    </p>
-                </div>
 
-                <div style="text-align:right; margin-top:50px; border-top: 1px solid #eee; padding-top:20px;">
-                    <p style="font-size:22px; font-weight:bold; color:#d81b60; margin-bottom:5px;">
-                        Once again, Many more happy returns of the day to the best HUMAN of my life! 🎉🎂❤️
-                    </p>
-                    <p style="font-size:18px; color:#555; font-style: italic;">— Yours, Ashu</p>
-                </div>
+elif page == "A Royal Letter":
+    pw = st.text_input("Enter Secret Word:", type="password")
+    if pw.lower() == "panda":
+        st.markdown("""
+            <div class="grand-letter">
+                <h2 style="color:#d81b60; text-align:center;">To My Best Human</h2>
+                <p>Many more happy returns to the prettiest and loveliest <b>PANDA</b>.</p>
+                <p>You're 19 now. Be brave, stay smiling like the moon (🌙), and know that Ashu is always here for you.</p>
+                <p style="text-align:right;">— Ashu ❤️</p>
             </div>
-        """, unsafe_allow_html=True) # <--- THIS LINE IS THE KEY
-        
-    elif pw != "":
-        st.error("That's not the secret word, Panda! Try again. 🐼")
+        """, unsafe_allow_html=True)
