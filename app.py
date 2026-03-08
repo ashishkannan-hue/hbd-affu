@@ -109,7 +109,7 @@ elif page == "The Luxury Boutique":
                 st.toast(f"{item} reserved for Affu! ✨")
 
 elif page == "A Royal Letter":
-    # --- 1. FLYING ANIMATION CSS ---
+    # 1. This CSS must be at the top of this block
     st.markdown("""
         <style>
         @keyframes fly-up {
@@ -132,60 +132,40 @@ elif page == "A Royal Letter":
     pw = st.text_input("Enter Secret Word (Hint: Your Nickname):", type="password")
     
     if pw.lower() == "panda":
-        # --- 2. START THE MAGIC ---
         st.balloons()
         st.snow()
         
-        # This creates the stream of flying hearts and balloons
+        # 2. Generate floating emojis
         floating_html = ""
-        emojis = ["❤️", "🎈", "💖", "✨", "🌸"]
-        for i in range(20):
-            left_pos = i * 5  
-            delay = i * 0.4   
-            emoji = emojis[i % len(emojis)]
-            floating_html += f'<div class="floating-emoji" style="left:{left_pos}%; animation-delay:{delay}s;">{emoji}</div>'
+        for i in range(15):
+            left = i * 6
+            delay = i * 0.5
+            floating_html += f'<div class="floating-emoji" style="left:{left}%; animation-delay:{delay}s;">❤️</div>'
+            floating_html += f'<div class="floating-emoji" style="left:{left+3}%; animation-delay:{delay+1}s;">🎈</div>'
         st.markdown(floating_html, unsafe_allow_html=True)
 
-        # --- 3. THE ACTUAL LETTER RENDERED AS PARAGRAPHS ---
-        st.markdown(f"""
-            <div class="grand-letter">
-                <div style="text-align:center; margin-bottom:10px;">
-                    <span style="font-size:40px;">🌙</span>
-                </div>
-                <h2 style="color:#d81b60; text-align:center; font-family: 'Georgia', serif; letter-spacing: 2px;">
-                    To My Best Human
-                </h2>
-                <hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0,0,0,0), rgba(212,175,55,0.75), rgba(0,0,0,0)); margin-bottom: 30px;">
-                
-                <div style="font-size:18px; line-height:1.9; color:#2c3e50; font-family: 'Georgia', serif;">
-                    <p>
-                        Many more happy returns to the best one, the cutest, prettiest, boldest, honest, loveliest 
-                        <b>PANDA</b>... and she who just turned <b>19</b> and is going to have the best days on to come. 
-                    </p>
+        # 3. THE LETTER (Simplified to prevent rendering errors)
+        letter_content = """
+        <div class="grand-letter">
+            <div style="text-align:center; margin-bottom:10px;"><span style="font-size:40px;">🌙</span></div>
+            <h2 style="color:#d81b60; text-align:center; font-family: 'Georgia', serif;">To My Best Human</h2>
+            <hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0,0,0,0), rgba(212,175,55,0.75), rgba(0,0,0,0)); margin-bottom: 30px;">
+            
+            <div style="font-size:18px; line-height:1.9; color:#2c3e50; font-family: 'Georgia', serif;">
+                <p>Many more happy returns to the best one, the cutest, prettiest, boldest, honest, loveliest <b>PANDA</b>... and she who just turned <b>19</b> and is going to have the best days on to come.</p>
+                <p>Always be happy and smiling like the moon smiles (🌙) and whatever happens, <b>Affu</b> has to be brave cuz you're growing from a baby to a woman.</p>
+                <p>Affu will have her best days coming and at this time, you were yelling at me and I'm not talking—sorry for that. But <b>Ashu</b> was a little serious in making you smile on your birthday.</p>
+                <p>There is a set of gifts on the boutique page, so select between them!</p>
+            </div>
 
-                    <p>
-                        Always be happy and smiling like the moon smiles (🌙) and whatever happens, <b>Affu</b> has to be brave 
-                        cuz you're growing from a baby to a woman. 
-                    </p>
-
-                    <p>
-                        Affu will have her best days coming and at this time, you were yelling at me and I'm not talking—sorry for that. 
-                        But <b>Ashu</b> was a little serious in making you smile on your birthday. 
-                    </p>
-
-                    <p>
-                        There is a set of gifts on the boutique page, so select between them!
-                    </p>
-                </div>
-
-                <div style="text-align:right; margin-top:50px; border-top: 1px solid #eee; padding-top:20px;">
-                    <p style="font-size:22px; font-weight:bold; color:#d81b60; margin-bottom:5px;">
-                        Once again, Many more happy returns of the day to the best HUMAN of my life! 🎉🎂❤️
-                    </p>
-                    <p style="font-size:18px; color:#555; font-style: italic;">— Yours, Ashu</p>
-                </div>
-                </div>
-        """, unsafe_allow_html=True)
+            <div style="text-align:right; margin-top:50px; border-top: 1px solid #eee; padding-top:20px;">
+                <p style="font-size:22px; font-weight:bold; color:#d81b60; margin-bottom:5px;">Once again, Many more happy returns of the day to the best HUMAN of my life! 🎉🎂❤️</p>
+                <p style="font-size:18px; color:#555; font-style: italic;">— Yours, Ashu</p>
+            </div>
+        </div>
+        """
+        # THE MOST IMPORTANT LINE:
+        st.markdown(letter_content, unsafe_allow_html=True)
         
-    elif pw != "":
+    elif pw:
         st.error("That's not the secret word, Panda! Try again. 🐼")
