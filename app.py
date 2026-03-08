@@ -108,43 +108,60 @@ elif page == "The Luxury Boutique":
             if st.button(f"Claim {item}", key=idx):
                 st.toast(f"{item} reserved for Affu! ✨")
 
+# --- PAGE 4: THE LETTER ---
 elif page == "A Royal Letter":
+    # 1. Custom CSS for Floating Hearts Animation
+    st.markdown("""
+        <style>
+        @keyframes fly-up {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        .floating-heart {
+            position: fixed;
+            bottom: -100px;
+            font-size: 24px;
+            animation: fly-up 6s linear infinite;
+            z-index: 999;
+            pointer-events: none;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
     st.markdown('<h1 style="text-align:center; color:white;">🔐 The Private Vault</h1>', unsafe_allow_html=True)
-    
-    # 1. Password Protection
-    pw = st.text_input("Enter Secret Word (Hint: Your Nickname):", type="password")
+    pw = st.text_input("Unlock the Vault (Secret Word):", type="password")
     
     if pw.lower() == "panda":
+        # 2. Trigger Balloons and Snow (Snowfall effect)
         st.balloons()
         st.snow()
 
-        # 2. This variable stores your letter design
-        letter_html = """
-        <div class="grand-letter">
-            <div style="text-align:center; margin-bottom:10px;">
-                <span style="font-size:40px;">🌙</span>
-            </div>
-            <h2 style="color:#d81b60; text-align:center; font-family: 'Georgia', serif; letter-spacing: 2px;">
-                To My Best Human
-            </h2>
-            <hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0,0,0,0), rgba(212,175,55,0.75), rgba(0,0,0,0)); margin-bottom: 30px;">
-            
-            <div style="font-size:18px; line-height:1.9; color:#2c3e50; font-family: 'Georgia', serif;">
-                <p>Many more happy returns to the best one, the cutest, prettiest, boldest, honest, loveliest <b>PANDA</b>... and she who just turned <b>19</b> and is going to have the best days on to come.</p>
-                <p>Always be happy and smiling like the moon smiles (🌙) and whatever happens, <b>Affu</b> has to be brave cuz you're growing from a baby to a woman.</p>
-                <p>Affu will have her best days coming and at this time, you were yelling at me and I'm not talking—sorry for that. But <b>Ashu</b> was a little serious in making you smile on your birthday.</p>
-                <p>There is a set of gifts on the boutique page, so select between them!</p>
-            </div>
+        # 3. Create a stream of flying hearts
+        heart_html = ""
+        for i in range(15):
+            left_pos = i * 7  # Spreading hearts across the width
+            delay = i * 0.5   # Staggering the start times
+            heart_html += f'<div class="floating-heart" style="left:{left_pos}%; animation-delay:{delay}s;">❤️</div>'
+        st.markdown(heart_html, unsafe_allow_html=True)
 
-            <div style="text-align:right; margin-top:50px; border-top: 1px solid #eee; padding-top:20px;">
-                <p style="font-size:22px; font-weight:bold; color:#d81b60; margin-bottom:5px;">Once again, Many more happy returns of the day to the best HUMAN of my life! 🎉🎂❤️</p>
-                <p style="font-size:18px; color:#555; font-style: italic;">— Yours, Ashu</p>
+        # 4. Your Beautiful Royal Letter
+        st.markdown("""
+            <div class="grand-letter">
+                <h1 style="color:#d81b60; text-align:center;">To My Favorite Human</h1>
+                <hr style="border-top: 1px solid #d4af37;">
+                <p style="font-size:18px; line-height:1.8; color:#2c3e50; font-family: 'Georgia', serif;">
+                    Many more happy returns to the best one—the prettiest, boldest, and loveliest <b>PANDA</b>.
+                    <br><br>
+                    You are turning 19 today, and the world is waiting for you to conquer it. 
+                    I know things have been a little quiet lately, but I wanted this space to show 
+                    you how much you matter. Always stay brave, keep that moonlit smile (🌙), 
+                    and remember that Ashu is always in your corner.
+                </p>
+                <div style="text-align:right; margin-top:50px; font-weight:bold; color:#d81b60;">
+                    Forever & Always,<br>
+                    Ashu ❤️
+                </div>
             </div>
-        </div>
-        """
-
-        # 3. THIS LINE TELLS STREAMLIT: "DO NOT SHOW CODE, SHOW THE LETTER"
-        st.markdown(letter_html, unsafe_allow_html=True)
-        
+        """, unsafe_allow_html=True)
     elif pw:
-        st.error("Wrong password! Try again, Panda. 🐼")
+        st.error("That's not the secret word, Panda! Try again. 🐼")
