@@ -109,7 +109,7 @@ elif page == "The Luxury Boutique":
                 st.toast(f"{item} reserved for Affu! ✨")
 
 elif page == "A Royal Letter":
-    # --- 1. CSS FOR FLYING HEARTS & BALLOONS ---
+    # --- 1. FLYING ANIMATION CSS ---
     st.markdown("""
         <style>
         @keyframes fly-up {
@@ -129,27 +129,24 @@ elif page == "A Royal Letter":
 
     st.markdown('<h1 style="text-align:center; color:white;">🔐 The Private Vault</h1>', unsafe_allow_html=True)
     
-    # Password Box
     pw = st.text_input("Enter Secret Word (Hint: Your Nickname):", type="password")
     
     if pw.lower() == "panda":
-        # --- 2. TRIGGER EFFECTS ---
+        # --- 2. START THE MAGIC ---
         st.balloons()
         st.snow()
         
-        # This generates the flying hearts and balloons
+        # This creates the stream of flying hearts and balloons
         floating_html = ""
-        emojis = ["❤️", "🎈", "💖", "✨", "🌸", "🧸"]
+        emojis = ["❤️", "🎈", "💖", "✨", "🌸"]
         for i in range(20):
             left_pos = i * 5  
             delay = i * 0.4   
             emoji = emojis[i % len(emojis)]
             floating_html += f'<div class="floating-emoji" style="left:{left_pos}%; animation-delay:{delay}s;">{emoji}</div>'
-        
         st.markdown(floating_html, unsafe_allow_html=True)
 
-        # --- 3. THE ACTUAL LETTER (FIXED) ---
-        # Wrapping your text in st.markdown with unsafe_allow_html=True makes the code vanish and the design appear
+        # --- 3. THE ACTUAL LETTER RENDERED AS PARAGRAPHS ---
         st.markdown(f"""
             <div class="grand-letter">
                 <div style="text-align:center; margin-bottom:10px;">
@@ -165,14 +162,17 @@ elif page == "A Royal Letter":
                         Many more happy returns to the best one, the cutest, prettiest, boldest, honest, loveliest 
                         <b>PANDA</b>... and she who just turned <b>19</b> and is going to have the best days on to come. 
                     </p>
+
                     <p>
                         Always be happy and smiling like the moon smiles (🌙) and whatever happens, <b>Affu</b> has to be brave 
                         cuz you're growing from a baby to a woman. 
                     </p>
+
                     <p>
                         Affu will have her best days coming and at this time, you were yelling at me and I'm not talking—sorry for that. 
                         But <b>Ashu</b> was a little serious in making you smile on your birthday. 
                     </p>
+
                     <p>
                         There is a set of gifts on the boutique page, so select between them!
                     </p>
@@ -184,7 +184,7 @@ elif page == "A Royal Letter":
                     </p>
                     <p style="font-size:18px; color:#555; font-style: italic;">— Yours, Ashu</p>
                 </div>
-            </div>
+                </div>
         """, unsafe_allow_html=True)
         
     elif pw != "":
