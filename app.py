@@ -4,54 +4,64 @@ from datetime import datetime
 from PIL import Image
 import os
 
-# --- 1. PAGE SETUP ---
-st.set_page_config(page_title="HBD AFFU 🌙", page_icon="🐼", layout="wide")
+# --- PAGE 1: HOME ---
+if page == "The Grand Opening":
+    st.markdown('<p class="nickname">AFFU</p>', unsafe_allow_html=True)
+    st.markdown('<p style="text-align:center; color:white; font-size:24px; letter-spacing:5px;">HAPPY 19TH BIRTHDAY</p>', unsafe_allow_html=True)
+    
+    # Target Date: March 22, 2026
+    target = datetime(2026, 3, 22, 0, 0, 0)
+    now = datetime.now()
+    diff = target - now
 
-# --- 2. THE GRAND DESIGN (CSS) ---
-st.markdown("""
-    <style>
-    .stApp {
-        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                    url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?auto=format&fit=crop&w=1920&q=80');
-        background-size: cover;
-        background-attachment: fixed;
-    }
-    .nickname {
-        font-family: 'serif';
-        background: -webkit-linear-gradient(#fff, #ff9a9e);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-size: 80px;
-        text-align: center;
-        font-weight: bold;
-        animation: float 3s ease-in-out infinite;
-    }
-    @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-15px); }
-    }
-    .glass-card {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 20px;
-        padding: 20px;
-        text-align: center;
-        color: white;
-        margin-bottom: 20px;
-    }
-    .grand-letter {
-        background: #fffdf5;
-        padding: 40px;
-        border-radius: 10px;
-        border: 2px solid #d4af37;
-        color: #1a1a1a;
-        font-family: 'Georgia', serif;
-        max-width: 700px;
-        margin: auto;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+    if diff.total_seconds() > 0:
+        st.write("##")
+        cols = st.columns([1,1,1,1])
+        days, hours, rem = diff.days, diff.seconds // 3600, diff.seconds % 3600
+        mins, secs = rem // 60, rem % 60
+        
+        for col, val, label in zip(cols, [days, hours, mins, secs], ["DAYS", "HOURS", "MINS", "SECS"]):
+            col.markdown(f"""
+                <div class="glass-card">
+                    <h1 style="color:#ff9a9e; margin:0;">{val}</h1>
+                    <p style="font-size:12px; margin:0; opacity:0.7;">{label}</p>
+                </div>
+            """, unsafe_allow_html=True)
+        time.sleep(1)
+        st.rerun()
+    else:
+        # --- THE REVEAL: CAKE & CELEBRATION ---
+        st.balloons()
+        st.snow()
+        
+        # Grand Heading
+        st.markdown("<h1 style='text-align:center; color: gold; font-size: 50px;'>👑 THE QUEEN HAS ARRIVED 👑</h1>", unsafe_allow_html=True)
+        
+        # The Animated Cake (Using HTML/CSS for a "Grand" feel)
+        st.markdown("""
+            <div style="display: flex; justify-content: center; align-items: center; padding: 40px;">
+                <div style="text-align: center;">
+                    <div style="font-size: 150px; filter: drop-shadow(0 0 20px #ff9a9e); animation: cake-glow 2s ease-in-out infinite;">
+                        🎂
+                    </div>
+                    <div style="color: white; font-family: 'serif'; font-size: 30px; margin-top: 20px; letter-spacing: 2px;">
+                        Make a Wish, Panda! 🌙
+                    </div>
+                </div>
+            </div>
+            <style>
+            @keyframes cake-glow {
+                0% { transform: scale(1); filter: drop-shadow(0 0 10px #ff9a9e); }
+                50% { transform: scale(1.1); filter: drop-shadow(0 0 30px #ffd700); }
+                100% { transform: scale(1); filter: drop-shadow(0 0 10px #ff9a9e); }
+            }
+            </style>
+        """, unsafe_allow_html=True)
+        
+        # Optional: A "Cut the Cake" button
+        if st.button("✨ Light the 19th Candle ✨"):
+            st.toast("Yay! The 19th year begins now! 💖")
+            st.confetti() # This works if you have streamlit-extras, otherwise balloons cover it!
 
 # --- 3. SIDEBAR ---
 with st.sidebar:
