@@ -107,14 +107,17 @@ elif page == "The Luxury Boutique":
             st.markdown(f"<div class='glass-card'><h2>{icon}</h2><h3>{item}</h3><p style='color:gold;'>FREE</p></div>", unsafe_allow_html=True)
             if st.button(f"Claim {item}", key=idx):
                 st.toast(f"{item} reserved for Affu! ✨")
+# --- PAGE 4: THE ROYAL LETTER ---
 elif page == "A Royal Letter":
     st.markdown('<h1 style="text-align:center; color:white;">🔐 The Private Vault</h1>', unsafe_allow_html=True)
     
-    # Password box with a cleaner look
-    pw = st.text_input("Enter the Secret Word (Hint: Your Nickname):", type="password", help="Type 'panda' to unlock")
+    # Password box
+    pw = st.text_input("Enter the Secret Word (Hint: Your Nickname):", type="password")
     
     if pw.lower() == "panda":
-        st.snow() # Sparkle effect upon unlocking
+        st.snow() 
+        
+        # This is the part that makes it look like a letter instead of code
         st.markdown(f"""
             <div class="grand-letter">
                 <div style="text-align:center; margin-bottom:10px;">
@@ -153,11 +156,7 @@ elif page == "A Royal Letter":
                     <p style="font-size:18px; color:#555; font-style: italic;">— Yours, Ashu</p>
                 </div>
             </div>
-            
-            <div style="text-align:center; margin-top:30px; color:rgba(255,255,255,0.6);">
-                <i>(Now head over to the Boutique to claim your favorite gift! 🛍️)</i>
-            </div>
-        """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True) # <--- THIS LINE IS THE KEY
         
     elif pw != "":
         st.error("That's not the secret word, Panda! Try again. 🐼")
