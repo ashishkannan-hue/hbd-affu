@@ -118,14 +118,52 @@ elif page == "Memory Lane":
 
 elif page == "The Luxury Boutique":
     st.markdown("<h1 style='text-align:center; color:white;'>🛍️ Boutique</h1>", unsafe_allow_html=True)
-    items = [("Samba Burgundy", "👟"), ("Lip Gloss", "💄"), ("Panda Plush", "🐼"),
-             ("Bouquet", "💐"), ("Designer Outfit", "👗"), ("Mystery Box", "🎁")]
+    
+    items = [
+        ("Elegant Kurthi", "👗"), 
+        ("Lip Gloss", "💄"), 
+        ("Panda Bag", "🎒"),
+        ("Bouquet", "💐"), 
+        ("Mystery Box", "🎁")
+    ]
+    
     cols = st.columns(3)
     for idx, (item, icon) in enumerate(items):
         with cols[idx % 3]:
-            st.markdown(f"<div class='glass-card'><h2>{icon}</h2><h3>{item}</h3><p style='color:gold;'>FREE</p></div>", unsafe_allow_html=True)
-            if st.button(f"Claim {item}", key=idx):
-                st.toast(f"{item} reserved! ✨")
+            st.markdown(f"""
+                <div class='glass-card'>
+                    <h2 style='font-size: 50px;'>{icon}</h2>
+                    <h3 style='color: white;'>{item}</h3>
+                    <p style='color: gold; font-weight: bold;'>ROYAL SELECTION</p>
+                </div>
+            """, unsafe_allow_html=True)
+            
+            # Special logic for the Mystery Box
+            if item == "Mystery Box":
+                if st.button(f"Unlock {item}", key=f"gift_{idx}"):
+                    st.session_state.unlock_mystery = True
+            else:
+                if st.button(f"Claim {item}", key=f"gift_{idx}"):
+                    st.balloons()
+                    st.toast(f"{item} added to your collection! ✨", icon="👑")
+
+    # --- THE MYSTERY BOX PASSKEY SECTION ---
+    if st.session_state.get('unlock_mystery', False):
+        st.markdown("---")
+        with st.container():
+            col1, col2, col3 = st.columns([1, 2, 1])
+            with col2:
+                st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
+                passkey = st.text_input("🔓 Enter the Year the Queen was Born:", placeholder="YYYY")
+                
+                if passkey:
+                    if passkey == "2007":
+                        st.balloons()
+                        st.success("Correct! Your mystery surprise is coming soon! 🎊")
+                        st.markdown("### 🎁 Mystery Revealed: [Insert Your Surprise Message or Image Here!]")
+                    else:
+                        st.error("Access Denied! Think back to the beginning... ❌")
+                st.markdown("</div>", unsafe_allow_html=True)
 
 elif page == "A Royal Letter":
     pw = st.text_input("Enter Secret Word:", type="password")
